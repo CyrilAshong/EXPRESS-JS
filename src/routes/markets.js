@@ -18,7 +18,12 @@ const marketList = [
 ]
 
 router.get("/", (req, res) => {
-    res.send(marketList);
+    const { number } = req.query;
+    const parsedNumber = parseInt(number);
+    if (!isNaN(parsedNumber)) {
+        const filteredMarkets = marketList.filter((m) => m.number <= parsedNumber);
+        res.send(filteredMarkets);
+    }else res.send(marketList);
 })
 
 router.get("/:shop", (req, res) => {
